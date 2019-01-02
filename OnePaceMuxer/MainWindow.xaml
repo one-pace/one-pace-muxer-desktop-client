@@ -1,0 +1,30 @@
+﻿<Window x:Class="OnePaceMuxer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OnePaceMuxer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Grid.Row="0">Video file:</Label>
+        <TextBox PreviewDrop="TextBox_PreviewDropVideoFile" PreviewDragOver="TextBox_PreviewDragOver" Grid.Column="1" Grid.ColumnSpan="3" Foreground="Gray" Grid.Row="0" VerticalAlignment="Center">Browse...</TextBox>
+        <Label Grid.Column="0" Grid.Row="1">Subtitles:</Label>
+        <TextBox PreviewDrop="TextBox_PreviewDropSubtitles" PreviewDragOver="TextBox_PreviewDragOver" Grid.Column="1" Grid.ColumnSpan="3" Foreground="Gray" Grid.Row="1" VerticalAlignment="Center">Browse...</TextBox>
+        <Label Grid.Column="0" Grid.Row="2">Chapter file:</Label>
+        <TextBox PreviewDrop="TextBox_PreviewDropChapterFile" PreviewDragOver="TextBox_PreviewDragOver" Grid.Column="1" Grid.ColumnSpan="3" Foreground="Gray" Grid.Row="2" VerticalAlignment="Center">Browse...</TextBox>
+        <Button Click="Button_Click" IsEnabled="False" Grid.ColumnSpan="4" HorizontalAlignment="Center" Padding="10,5" Margin="10" Grid.Row="3">Mux!</Button>
+    </Grid>
+</Window>
