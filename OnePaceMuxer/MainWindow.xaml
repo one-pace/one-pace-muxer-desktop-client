@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OnePaceMuxer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="One Pace Muxer" Height="240" Width="400">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -16,15 +17,15 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Label Grid.Column="0" Grid.Row="0">Video file:</Label>
-        <TextBox PreviewDrop="TextBox_PreviewDropVideoFile" PreviewDragOver="TextBox_PreviewDragOver" Grid.Column="1" Grid.ColumnSpan="3" Foreground="Gray" Grid.Row="0" VerticalAlignment="Center">Browse...</TextBox>
+        <TextBox Name="TextBox_VideoFile" PreviewMouseLeftButtonUp="TextBox_PreviewMouseLeftButtonUpVideoFile" PreviewDrop="TextBox_PreviewDropVideoFile" PreviewDragOver="TextBox_PreviewDragOverVideoFile" Grid.Column="1" Foreground="Gray" Grid.Row="0" VerticalAlignment="Center">Browse...</TextBox>
         <Label Grid.Column="0" Grid.Row="1">Subtitles:</Label>
-        <TextBox PreviewDrop="TextBox_PreviewDropSubtitles" PreviewDragOver="TextBox_PreviewDragOver" Grid.Column="1" Grid.ColumnSpan="3" Foreground="Gray" Grid.Row="1" VerticalAlignment="Center">Browse...</TextBox>
+        <TextBox Name="TextBox_SubtitlesFile" PreviewMouseLeftButtonUp="TextBox_PreviewMouseLeftButtonUpSubtitleFile" PreviewDrop="TextBox_PreviewDropSubtitles" PreviewDragOver="TextBox_PreviewDragOverSubtitleFile" Grid.Column="1" Foreground="Gray" Grid.Row="1" VerticalAlignment="Center">Browse...</TextBox>
         <Label Grid.Column="0" Grid.Row="2">Chapter file:</Label>
-        <TextBox PreviewDrop="TextBox_PreviewDropChapterFile" PreviewDragOver="TextBox_PreviewDragOver" Grid.Column="1" Grid.ColumnSpan="3" Foreground="Gray" Grid.Row="2" VerticalAlignment="Center">Browse...</TextBox>
-        <Button Click="Button_Click" IsEnabled="False" Grid.ColumnSpan="4" HorizontalAlignment="Center" Padding="10,5" Margin="10" Grid.Row="3">Mux!</Button>
+        <TextBox Name="TextBox_ChapterFile" PreviewMouseLeftButtonUp="TextBox_PreviewMouseLeftButtonUpChapterFile" PreviewDrop="TextBox_PreviewDropChapterFile" PreviewDragOver="TextBox_PreviewDragOverChapterFile" Grid.Column="1" Foreground="Gray" Grid.Row="2" VerticalAlignment="Center">Browse...</TextBox>
+        <Label Grid.Column="0" Grid.Row="3">Languages:</Label>
+        <TextBox Name="TextBox_Languages" TextChanged="TextBox_TextChangedLanguages" Grid.Column="1" Grid.Row="3"></TextBox>
+        <Button Name="Button_Mux" Click="Button_Click" IsEnabled="False" Grid.ColumnSpan="2" HorizontalAlignment="Center" Padding="10,5" Margin="10" Grid.Row="4">Mux!</Button>
     </Grid>
 </Window>
