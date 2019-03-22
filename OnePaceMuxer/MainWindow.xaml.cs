@@ -1,5 +1,5 @@
-﻿using FileTools.NET.Utils;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
+using OnePaceCore.Utils;
 using OnePaceMuxer.Properties;
 using System;
 using System.Collections.Generic;
@@ -20,6 +20,7 @@ namespace OnePaceMuxer
         private FileInfo chapterFile;
         private FileInfo videoFile;
         private FileInfo subtitlesFile;
+        private string subtitlesAppendFile;
 
         public MainWindow()
         {
@@ -76,7 +77,7 @@ namespace OnePaceMuxer
                         attachments = GetSSAFontLocations(subtitlesFile);
                     }
                     string outputFile = videoFile.FullName + ".muxed.mkv";
-                    MKVToolNixUtils.Multiplex(videoFile, subtitlesFile, languages, attachments, chapterFile, outputFile);
+                    MKVToolNixUtils.Multiplex(videoFile, subtitlesFile, languages, attachments, chapterFile, new string[] { subtitlesAppendFile }, outputFile);
                 }
                 catch (Exception exception)
                 {
@@ -232,8 +233,33 @@ namespace OnePaceMuxer
         {
             TextBox_ChapterFile.Text = chapterFile?.FullName ?? "Browse...";
             TextBox_SubtitlesFile.Text = subtitlesFile?.FullName ?? "Browse...";
+            TextBox_SubtitlesAppendFile.Text = subtitlesAppendFile ?? "Browse...";
             TextBox_VideoFile.Text = videoFile?.FullName ?? "Browse...";
             Button_Mux.IsEnabled = chapterFile != null && subtitlesFile != null && videoFile != null;
         }
+
+        #region Subtitle append
+        private void TextBox_PreviewDropSubtitlesAppend(object sender, DragEventArgs e)
+        {
+            subtitlesAppendFile = GetDropFile(e);
+            UpdateUIState();
+        }
+
+        private void TextBox_PreviewMouseLeftButtonUpSubtitleAppendFile(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "Subtitle files (*.srt;*.ssa;*.ass)|*.srt;*.ssa;*.ass" };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                subtitlesAppendFile = openFileDialog.FileName;
+                UpdateUIState();
+            }
+        }
+
+        private void TextBox_PreviewDragOverSubtitleAppendFile(object sender, DragEventArgs e)
+        {
+            string dropFile = GetDropFile(e);
+            e.Handled = dropFile != null && (Path.GetExtension(dropFile) == ".srt" || Path.GetExtension(dropFile) == ".ssa" || (Path.GetExtension(dropFile) == ".ass"));
+        }
+        #endregion
     }
 }

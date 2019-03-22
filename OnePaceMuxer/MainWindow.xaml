@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -22,10 +23,12 @@
         <TextBox Name="TextBox_VideoFile" PreviewMouseLeftButtonUp="TextBox_PreviewMouseLeftButtonUpVideoFile" PreviewDrop="TextBox_PreviewDropVideoFile" PreviewDragOver="TextBox_PreviewDragOverVideoFile" Grid.Column="1" Foreground="Gray" Grid.Row="0" VerticalAlignment="Center">Browse...</TextBox>
         <Label Grid.Column="0" Grid.Row="1">Subtitles:</Label>
         <TextBox Name="TextBox_SubtitlesFile" PreviewMouseLeftButtonUp="TextBox_PreviewMouseLeftButtonUpSubtitleFile" PreviewDrop="TextBox_PreviewDropSubtitles" PreviewDragOver="TextBox_PreviewDragOverSubtitleFile" Grid.Column="1" Foreground="Gray" Grid.Row="1" VerticalAlignment="Center">Browse...</TextBox>
-        <Label Grid.Column="0" Grid.Row="2">Chapter file:</Label>
-        <TextBox Name="TextBox_ChapterFile" PreviewMouseLeftButtonUp="TextBox_PreviewMouseLeftButtonUpChapterFile" PreviewDrop="TextBox_PreviewDropChapterFile" PreviewDragOver="TextBox_PreviewDragOverChapterFile" Grid.Column="1" Foreground="Gray" Grid.Row="2" VerticalAlignment="Center">Browse...</TextBox>
-        <Label Grid.Column="0" Grid.Row="3">Languages:</Label>
-        <TextBox Name="TextBox_Languages" TextChanged="TextBox_TextChangedLanguages" Grid.Column="1" Grid.Row="3"></TextBox>
-        <Button Name="Button_Mux" Click="Button_Click" IsEnabled="False" Grid.ColumnSpan="2" HorizontalAlignment="Center" Padding="10,5" Margin="10" Grid.Row="4">Mux!</Button>
+        <Label Grid.Column="0" Grid.Row="2">Append:</Label>
+        <TextBox Name="TextBox_SubtitlesAppendFile" PreviewMouseLeftButtonUp="TextBox_PreviewMouseLeftButtonUpSubtitleAppendFile" PreviewDrop="TextBox_PreviewDropSubtitlesAppend" PreviewDragOver="TextBox_PreviewDragOverSubtitleAppendFile" Grid.Column="1" Foreground="Gray" Grid.Row="2" VerticalAlignment="Center">Browse...</TextBox>
+        <Label Grid.Column="0" Grid.Row="3">Chapter file:</Label>
+        <TextBox Name="TextBox_ChapterFile" PreviewMouseLeftButtonUp="TextBox_PreviewMouseLeftButtonUpChapterFile" PreviewDrop="TextBox_PreviewDropChapterFile" PreviewDragOver="TextBox_PreviewDragOverChapterFile" Grid.Column="1" Foreground="Gray" Grid.Row="3" VerticalAlignment="Center">Browse...</TextBox>
+        <Label Grid.Column="0" Grid.Row="4">Languages:</Label>
+        <TextBox Name="TextBox_Languages" TextChanged="TextBox_TextChangedLanguages" Grid.Column="1" Grid.Row="4"></TextBox>
+        <Button Name="Button_Mux" Click="Button_Click" IsEnabled="False" Grid.ColumnSpan="2" HorizontalAlignment="Center" Padding="10,5" Margin="10" Grid.Row="5">Mux!</Button>
     </Grid>
 </Window>
