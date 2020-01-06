@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnePaceMuxer", "OnePaceMuxer\OnePaceMuxer.csproj", "{CF980CC1-D291-4B72-850C-8E7D6C2F700E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnePaceCore", "..\one-pace-core\OnePaceCore.csproj", "{D9D42725-EF61-4989-AFD3-69EA7F08984D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnePaceCore", "..\one-pace-core-desktop-library\OnePaceCore.csproj", "{D9D42725-EF61-4989-AFD3-69EA7F08984D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
