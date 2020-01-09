@@ -31,7 +31,8 @@ namespace OnePaceMuxer
         private void TextBox_PreviewDragOverVideoFile(object sender, DragEventArgs e)
         {
             string dropFile = GetDropFile(e);
-            e.Handled = dropFile != null && Path.GetExtension(dropFile) == ".mp4";
+            string fileExtension = Path.GetExtension(dropFile);
+            e.Handled = dropFile != null && (fileExtension == ".mp4" || fileExtension == ".mkv");
         }
 
         private void TextBox_PreviewDropVideoFile(object sender, DragEventArgs e)
@@ -189,7 +190,7 @@ namespace OnePaceMuxer
 
         private void TextBox_PreviewMouseLeftButtonUpVideoFile(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "Video files (*.mp4)|*.mp4" };
+            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "Video files (*.mp4;*.mkv)|*.mp4;*.mkv" };
             if (openFileDialog.ShowDialog() == true)
             {
                 videoFile = new FileInfo(openFileDialog.FileName);
