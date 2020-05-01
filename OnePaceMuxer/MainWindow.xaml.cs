@@ -78,7 +78,12 @@ namespace OnePaceMuxer
                         attachments = GetSSAFontLocations(subtitlesFile);
                     }
                     string outputFile = videoFile.FullName + ".muxed.mkv";
-                    MKVToolNixUtils.Multiplex(videoFile, subtitlesFile, languages, attachments, chapterFile, new string[] { subtitlesAppendFile }, outputFile);
+                    string[] subtitleAppendices = new string[] { subtitlesAppendFile };
+                    if (string.IsNullOrWhiteSpace(subtitlesAppendFile))
+                    {
+                        subtitleAppendices = null;
+                    }
+                    MKVToolNixUtils.Multiplex(videoFile, subtitlesFile, languages, attachments, chapterFile, subtitleAppendices, outputFile);
                 }
                 catch (Exception exception)
                 {
