@@ -169,8 +169,8 @@ namespace OnePaceMuxer
                                 {
                                     throw new Exception(string.Format("Missing font '{0}'. Please install it to your system to continue.", font));
                                 }
-                                FileInfo systemFontPath = systemFont.path;
-                                if (!fontLocations.Contains(systemFontPath))
+                                FileInfo systemFontPath = new FileInfo(systemFont.path.ToString().Replace("%20", " "));
+                                if (!fontLocations.Any(i => i.ToString() == systemFontPath.ToString()))
                                 {
                                     fontLocations.Add(systemFontPath);
                                 }
