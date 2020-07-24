@@ -67,7 +67,7 @@ namespace OnePaceMuxer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string[] languages = TextBox_Languages.Text.Split(',');
+            string[] languages = TextBox_Languages.Text.Split(',').Select(i => i.Trim()).ToArray();
             Task.Run(() =>
             {
                 try
