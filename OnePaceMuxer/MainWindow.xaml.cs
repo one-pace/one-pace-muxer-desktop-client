@@ -19,6 +19,7 @@ namespace OnePaceMuxer
     {
         private FileInfo chapterFile;
         private FileInfo videoFile;
+        private FileInfo audioFile;
         private FileInfo subtitlesFile;
         private string subtitlesAppendFile;
 
@@ -83,7 +84,7 @@ namespace OnePaceMuxer
                     {
                         subtitleAppendices = null;
                     }
-                    MKVToolNixUtils.Multiplex(videoFile, subtitlesFile, languages, attachments, chapterFile, subtitleAppendices, outputFile);
+                    MKVToolNixUtils.Multiplex(videoFile, audioFile, subtitlesFile, languages, attachments, chapterFile, subtitleAppendices, outputFile);
                 }
                 catch (Exception exception)
                 {
@@ -241,6 +242,7 @@ namespace OnePaceMuxer
             TextBox_SubtitlesFile.Text = subtitlesFile?.FullName ?? "Browse...";
             TextBox_SubtitlesAppendFile.Text = subtitlesAppendFile ?? "Browse...";
             TextBox_VideoFile.Text = videoFile?.FullName ?? "Browse...";
+            TextBox_AudioFile.Text = audioFile?.FullName ?? "Browse...";
             Button_Mux.IsEnabled = chapterFile != null && subtitlesFile != null && videoFile != null;
         }
 
@@ -267,5 +269,38 @@ namespace OnePaceMuxer
             e.Handled = dropFile != null && (Path.GetExtension(dropFile) == ".srt" || Path.GetExtension(dropFile) == ".ssa" || (Path.GetExtension(dropFile) == ".ass"));
         }
         #endregion
+
+        private void TextBox_PreviewMouseLeftButtonUpAudioFile(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "Audio files (*.mp3;*.flac;*.aac;*.ac3;*.m4a;*.wav;*.ogg)|*.mp3;*.flac;*.aac;*.ac3;*.m4a;*.wav;*.ogg" };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                audioFile = new FileInfo(openFileDialog.FileName);
+                UpdateUIState();
+            }
+        }
+
+        private void TextBox_PreviewDropAudioFile(object sender, DragEventArgs e)
+        {
+            audioFile = new FileInfo(GetDropFile(e));
+            UpdateUIState();
+        }
+
+        string[] audioFormats = new string[]
+        {
+            ".mp3",
+            ".flac",
+            ".aac",
+            ".ac3",
+            ".m4a",
+            ".wav",
+            ".ogg"
+        };
+        private void TextBox_PreviewDragOverAudioFile(object sender, DragEventArgs e)
+        {
+            string dropFile = GetDropFile(e);
+            string fileExtension = Path.GetExtension(dropFile);
+            e.Handled = dropFile != null && audioFormats.Contains(fileExtension);
+        }
     }
 }
