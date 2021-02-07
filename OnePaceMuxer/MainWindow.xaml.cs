@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -151,34 +152,24 @@ namespace OnePaceMuxer
                 catch { }
             }
             IList<FileInfo> fontLocations = new List<FileInfo>();
-            using (var stream = new FileStream(ssaFile.FullName, FileMode.Open))
-            using (var fileReader = new StreamReader(stream))
+            var v4StylesRegex = @"(?:Style: [\w +-]+,)([\w -]+)(?=,)";
+            var fnRegex = @"(?<=\\fn)[\w -]+";
+            string ssaText = File.ReadAllText(ssaFile.FullName);
+            var v4fonts = Regex.Matches(ssaText, v4StylesRegex).Cast<Match>().Select(i => i.Groups[1].Value);
+            var fnfonts = Regex.Matches(ssaText, fnRegex).Cast<Match>().Select(i => i.Value);
+            
+            var fonts = v4fonts.Concat(fnfonts).Distinct();
+            foreach (var font in fonts)
             {
-                while (!fileReader.EndOfStream)
+                Font systemFont = fontNames.FirstOrDefault(i => i.familyName.ToLower() == font.ToLower() || i.familyFaceName.ToLower() == font.ToLower());
+                if (systemFont == null)
                 {
-                    string line = fileReader.ReadLine();
-                    if (line == "[V4+ Styles]")
-                    {
-                        do
-                        {
-                            line = fileReader.ReadLine();
-                            if (line.StartsWith("Style: "))
-                            {
-                                string font = line.Substring(7).Split(',')[1];
-                                Font systemFont = fontNames.FirstOrDefault(i => i.familyName.ToLower() == font.ToLower() || i.familyFaceName.ToLower() == font.ToLower());
-                                if (systemFont == null)
-                                {
-                                    throw new Exception(string.Format("Missing font '{0}'. Please install it to your system to continue.", font));
-                                }
-                                FileInfo systemFontPath = new FileInfo(systemFont.path.ToString().Replace("%20", " "));
-                                if (!fontLocations.Any(i => i.ToString() == systemFontPath.ToString()))
-                                {
-                                    fontLocations.Add(systemFontPath);
-                                }
-                            }
-                        } while (!fileReader.EndOfStream && line != "");
-                        break;
-                    }
+                    throw new Exception(string.Format("Missing font '{0}'. Please install it to your system to continue.", font));
+                }
+                FileInfo systemFontPath = new FileInfo(systemFont.path.ToString().Replace("%20", " "));
+                if (!fontLocations.Any(i => i.ToString() == systemFontPath.ToString()))
+                {
+                    fontLocations.Add(systemFontPath);
                 }
             }
             return fontLocations;
